@@ -24,6 +24,21 @@ belt = (function(){
                 string2type[ toString.call(obj) ] || 'object' :
                 typeof obj;
         }
+
+        , isDefaultPrevented: function (eventIn) {
+            //this is a fix for versions of android.
+            //  use it in your event handling to check for error filled
+            //  bubbling of events.
+            if ( eventIn.defaultPrevented ||
+                    // Support: Android < 4.0
+                    eventIn.defaultPrevented === undefined &&
+                    eventIn.getPreventDefault && eventIn.getPreventDefault() ) {
+                return true;
+
+            } else {
+                return false;
+            }
+        }
     };
 
     return belt;
